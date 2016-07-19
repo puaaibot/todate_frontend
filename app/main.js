@@ -1,57 +1,23 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
-import { Router, Route, IndexRoute, Link, browserHistory } from 'react-router'
-import App from './components/App.js'
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
+
+import IndexPage from './pages/IndexPage'
+import LoginPage from './pages/LoginPage.js'
+
 import './main.css'
-
-const ACITVE = { color: 'red' }
-
-
-class MyRouter extends Component {
-    render() {
-        return (
-            <div>
-                <h1>我的路由</h1>
-                <ul>
-                    <li><Link to="/" activeStyle={ACITVE}>首页</Link></li>
-                    <li><Link to="/users" activeStyle={ACITVE}>用户页</Link></li>
-                    <li><Link to="/app" activeStyle={ACITVE}>其他页</Link></li>
-                </ul>
-                {this.props.children}
-            </div>
-        )
-    }
-}
-
-
-class Index extends React.Component {
-    render() {
-        return (
-            <div>
-                <h2>Index!</h2>
-            </div>
-        )
-    }
-}
-
-
-class Users extends React.Component {
-    render() {
-        return (
-            <div>
-                <h2>Users...</h2>
-            </div>
-        )
-    }
-}
 
 
 render((
-    <Router history={browserHistory}>
-        <Route path="/" component={MyRouter}>
-            <IndexRoute component={Index} />
-            <Route path="users" component={Users} />
-            <Route path="app" component={App} />
-        </Route>
+  <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+    <Router history={ browserHistory }>
+      <Route path="/">
+        <IndexRoute component={IndexPage} />
+        <Route path="login" component={LoginPage} />
+      </Route>
     </Router>
+  </MuiThemeProvider>
 ), document.getElementById('app'))
